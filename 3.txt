@@ -1,0 +1,26 @@
+Try
+
+            da = New SqlDataAdapter("SELECT * FROM studentdetails where student_id= @id", myConn)
+            da.SelectCommand.Parameters.AddWithValue("@id", txt_id.Text)
+            da.Fill(dset, "studentdetails")
+
+            If dset.Tables("studentdetails").Rows(0)("student_id") = Convert.ToInt32(txt_id.Text) Then
+                dset.Tables("studentdetails").Rows(0)("student_name") = txt_name.Text
+                dset.Tables("studentdetails").Rows(0)("student_branch") = txt_branch.Text
+                dset.Tables("studentdetails").Rows(0)("student_class") = txt_class.Text
+                MsgBox("Update Complete")
+            Else
+                MsgBox("Record not found")
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        Finally
+
+            myConn.Close()
+        End Try
+Dim sqlcommand As String = "UPDATE studentdetails  SET student_name=@txt_name , student_branch=@txt_branch ,student_class=@txt_class "
+Dim com As New SqlCommand(sqlcommand, myConn)
+com.Parameters.AddWithValue("@txt_name", txt_name.Text)
+com.Parameters.AddWithValue("@txt_branch", txt_branch.Text)
+com.Parameters.AddWithValue("@txt_class", txt_class.Text)

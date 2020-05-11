@@ -1,0 +1,37 @@
+Private Sub btnSave_Click(ByVal sender As System.Object, ByVal e As  System.EventArgs)  Handles btnSave.Click
+
+    Dim strName As String = txtName.Text
+    Dim strId As String = txtID.Text
+    Dim strPhone As String = txtPhone.Text
+    Dim strBranch As String = cmboxBranch.SelectedItem.ToString()
+    Dim  strCourse As String = cmbboxCourse.SelectedItem.ToString()
+    Dim dblFee As Double = Double.Parse(txtFee.Text) 
+
+    Dim strCommand As String = "insert into student values('" & strName & "','" & strId &    "','" & strPhone & "','" & strBranch & "','" & strCourse & "'," & dblFee & ")"
+
+    Dim command As SqlCommand = New SqlCommand(strCommand, connection)
+    command.CommandType = CommandType.Text
+Dim query as String = String.Empty
+query &= "INSERT INTO student (colName, colID, colPhone, "
+query &= "                     colBranch, colCourse, coldblFee)  "
+query &= "VALUES (@colName,@colID, @colPhone, @colBranch,@colCourse, @coldblFee)"
+
+Using conn as New SqlConnection("connectionStringHere")
+    Using comm As New SqlCommand()
+        With comm
+            .Connection = conn
+            .CommandType = CommandType.Text
+            .CommandText = query
+            .Parameters.AddWithValue("@colName", strName)
+            .Parameters.AddWithValue("@colID", strId)
+            .Parameters.AddWithValue("@colPhone", strPhone)
+            .Parameters.AddWithValue("@colBranch", strBranch)
+            .Parameters.AddWithValue("@colCourse", strCourse)
+            .Parameters.AddWithValue("@coldblFee", dblFee)
+        End With
+        Try
+            conn.open()
+            comm.ExecuteNonQuery()
+        Catch(ex as SqlException)
+            MessageBox.Show(ex.Message.ToString(), "Error Message")
+        End Try

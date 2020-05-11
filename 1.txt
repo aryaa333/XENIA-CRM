@@ -1,0 +1,21 @@
+Imports System.IO
+Imports System.Drawing.Printing
+Imports RasterEdge.Imaging
+Imports RasterEdge.Imaging.Processing
+
+Dim Image As New RasterEdgeImaging()
+
+Dim ResImg As Integer
+ResImg = RasterEdgeImaging.CreateBitmapImage(75, 250, PixelFormat.Format24bppRgb, 
+RasterEdgeImaging.ARGB(255, 0, 0, 0))
+Image.save("C:\1.bmp")
+Public Shared Sub New(Width As Integer, Height As Integer, PixelFormat As PixelFormat, BackColor As Color)
+End Sub
+Dim Image As New RasterEdgeImaging()
+
+Dim ResImg As Integer
+ResImg = RasterEdgeImaging.CreateGifImage(75, 250, PixelFormat.Format24bppRgb, RasterEdgeImaging.ARGB
+(255, 0, 0, 0))
+Image.save(@"C:\1.gif")
+Public Shared Sub New(Width As Integer, Height As Integer, PixelFormat As PixelFormat, BackColor As Color)
+End Sub
